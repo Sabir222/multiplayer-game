@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WebSocket Echo Client</title>
+  </head>
+  <body>
+    <h1>WebSocket Echo Client</h1>
+    <script>
+      // Create a new WebSocket connection to the echo server.
+      var ws = new WebSocket("ws://localhost:8080/ws");
+
+      // Called when the connection is established.
+      ws.onopen = function () {
+        console.log("Connected to the echo server");
+        // Send a test message to the server.
+        ws.send("Hello, Echo Server!");
+      };
+
+      // Called when a message is received from the server.
+      ws.onmessage = function (event) {
+        console.log("Echoed back:", event.data);
+      };
+
+      // Handle any errors.
+      ws.onerror = function (error) {
+        console.error("WebSocket Error:", error);
+      };
+
+      // Called when the connection is closed.
+      ws.onclose = function () {
+        console.log("Connection closed");
+      };
+    </script>
+  </body>
+</html>
