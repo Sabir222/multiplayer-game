@@ -1,35 +1,34 @@
 <!doctype html>
 <html>
   <head>
-    <title>WebSocket Echo Client</title>
+    <title>Game Client</title>
   </head>
   <body>
-    <h1>WebSocket Echo Client</h1>
     <script>
-      // Create a new WebSocket connection to the echo server.
-      var ws = new WebSocket("ws://localhost:8080/ws");
+      const ws = new WebSocket("ws://localhost:8080/ws");
 
-      // Called when the connection is established.
       ws.onopen = function () {
-        console.log("Connected to the echo server");
-        // Send a test message to the server.
-        ws.send("Hello, Echo Server!");
+        console.log("Connected to server");
       };
 
-      // Called when a message is received from the server.
       ws.onmessage = function (event) {
-        console.log("Echoed back:", event.data);
+        console.log("Message from server:", event.data);
       };
 
-      // Handle any errors.
-      ws.onerror = function (error) {
-        console.error("WebSocket Error:", error);
-      };
-
-      // Called when the connection is closed.
       ws.onclose = function () {
-        console.log("Connection closed");
+        console.log("Disconnected from server");
       };
+
+      // Send test message every 5 seconds
+      setInterval(() => {
+        ws.send(
+          JSON.stringify({
+            type: "position",
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+          }),
+        );
+      }, 5000);
     </script>
   </body>
 </html>
