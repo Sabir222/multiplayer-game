@@ -30,3 +30,5 @@ Client <-> WebSocket <-> Game Server <-> Database (optional)
 └── config/
     └── config.yaml
 ```
+
+-- ok
